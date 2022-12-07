@@ -69,15 +69,15 @@ allPriorityColor.forEach((ColorElem, idx) => {
 })
 
 addBtn.addEventListener("click", (e) => {
-    //Display Modal
-    //Generate ticket
-    console.log("Vibhu");
-    //Addflag , true -> Modal Display
-    //Addflag , false -> Modal None;
+
     addFlag = !addFlag;
     if (addFlag) {
         modalCont.style.display = "flex";
-    } else {
+    } else {    //Display Modal
+        //Generate ticket
+        console.log("Jitendra Kumar");
+        //Addflag , true -> Modal Display
+        //Addflag , false -> Modal None;
         modalCont.style.display = "none";
     }
 })
@@ -89,7 +89,7 @@ removeBtn.addEventListener("click", (e) => {
 
 modalCont.addEventListener("keydown", (e) => {
     let key = e.key;
-    if (key === "Shift") {
+    if (key === "Enter") {
         createTicket(modalPriorityColor, textareaCont.value);
         addFlag = false;
         setModalToDefault();
@@ -104,9 +104,6 @@ function createTicket(ticketColor, ticketTask, ticketID) {
     <div class = "ticket-color ${ticketColor}"></div>
     <div class="ticket-id">#${ticketID}</div>
     <div class="task-area">${ticketTask}</div>
-    <div class="ticket-lock">
-        <i class="fa-solid fa-lock"></i>
-    </div>
     `;
     mainCont.appendChild(ticketCont);
 
@@ -118,7 +115,6 @@ function createTicket(ticketColor, ticketTask, ticketID) {
     }
 
     handleRemoval(ticketCont ,id);
-    handleLock(ticketCont , id);
     handleColor(ticketCont , id);
 }
 
@@ -136,27 +132,6 @@ function handleRemoval(ticket , id) {
     })
 }
 
-
-function handleLock(ticket , id) {
-    let ticketLockElem = ticket.querySelector(".ticket-lock");
-    let ticketLock = ticketLockElem.children[0];
-    let ticketTaskArea = ticket.querySelector(".task-area");
-    ticketLock.addEventListener("click", (e) => {
-        let ticketIdx = getTicketIdx(id);
-        if (ticketLock.classList.contains(lockClass)) {
-            ticketLock.classList.remove(lockClass);
-            ticketLock.classList.add(unlockClass);
-            ticketTaskArea.setAttribute("contenteditable", "true");
-        } else {
-            ticketLock.classList.remove(unlockClass);
-            ticketLock.classList.add(lockClass);
-            ticketTaskArea.setAttribute("contentedittable", "true");
-        }
-        //Modify data in localStorage (Ticket Task)
-        ticketArr[ticketIdx].ticketTask = ticketTaskArea.innerText;
-        localStorag.setItem("jira_tickets",JSON.stringify(ticketArr));
-    })
-}
 
 function handleColor(ticket ,id) {
     let ticketColor = ticket.querySelector(".ticket-color");
